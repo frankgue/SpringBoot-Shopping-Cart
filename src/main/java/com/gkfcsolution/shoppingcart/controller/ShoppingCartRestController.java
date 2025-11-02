@@ -45,12 +45,14 @@ public class ShoppingCartRestController {
 
     @GetMapping(value = "/getAllProducts")
     public ResponseEntity<List<Product>> getAllProducts(){
+        logger.info("getAllProducts - ");
         List<Product> productList = productService.getAllProducts();
         return ResponseEntity.ok(productList);
     }
 
     @GetMapping(value = "/getOrder/{orderId}")
     public ResponseEntity<Order> getOrderDetails(@PathVariable int orderId){
+        logger.info("getOrderDetails - ");
         Order order = orderService.getOrderDetail(orderId);
         return ResponseEntity.ok(order);
     }

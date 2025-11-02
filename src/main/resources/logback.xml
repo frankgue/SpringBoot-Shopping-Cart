@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<configuration status="WARN">
+
+    <property name="HOME_LOG" value="logs/ShoppingCart-Backend.log"/>
+
+    <appender name="CONSOLE" class="ch.qos.logback.core.ConsoleAppender">
+        <layout class="ch.qos.logback.classic.PatternLayout">
+            <Pattern>
+                %yellow(%d{HH:mm:ss.SSS})  |  %blue(%thread)  |  %highlight(%-5level)  |  %cyan(%-60logger{60})  |  %green(%msg%n)
+            </Pattern>
+        </layout>
+    </appender>
+
+    <appender name="ROLLINGFILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>${HOME_LOG}</file>
+
+        <rollingPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedRollingPolicy">
+            <fileNamePattern>logs/archived/ShoppingCart-Backend.%d{yyyy-MM-dd}.%i.log.gz</fileNamePattern>
+
+            <!-- each archived file, size max 10MB -->
+            <maxFileSize>3KB</maxFileSize>
+<!--            <maxFileSize>10MB</maxFileSize>-->
+            <!-- total size of all archive files, if total size > 20GB, it will delete old archived file -->
+            <totalSizeCap>10KB</totalSizeCap>
+<!--            <totalSizeCap>20GB</totalSizeCap>-->
+            <!-- 60 days to keep -->
+            <maxHistory>10</maxHistory>
+<!--            <maxHistory>60</maxHistory>-->
+            <cleanHistoryOnStart>true</cleanHistoryOnStart>
+            <timeBasedFileNamingAndTriggeringPolicy
+                    class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">
+                <maxFileSize>3KB</maxFileSize>
+<!--                <maxFileSize>10MB</maxFileSize>-->
+            </timeBasedFileNamingAndTriggeringPolicy>
+        </rollingPolicy>
+
+        <encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
+            <pattern>
+                %d{HH:mm:ss.SSS}  |  [%thread]  |  %-5level  |  %-60logger{60}  |  %msg%n
+            </pattern>
+        </encoder>
+    </appender>
+
+    <root level="info">
+        <appender-ref ref="CONSOLE" />
+        <appender-ref ref="ROLLINGFILE" />
+    </root>
+</configuration>
